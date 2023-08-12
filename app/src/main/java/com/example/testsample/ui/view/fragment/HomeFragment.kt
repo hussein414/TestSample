@@ -13,12 +13,16 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.testsample.R
 import com.example.testsample.databinding.FragmentHomeBinding
 import com.example.testsample.ui.view.adapter.ProfileAdapter
+import com.example.testsample.ui.view.activites.MainActivity
+
+import com.example.testsample.ui.viewmodel.ProfileViewModel
 
 
 class HomeFragment : Fragment() {
 
     private lateinit var binding: FragmentHomeBinding
     lateinit var profileAdapter: ProfileAdapter
+    private lateinit var profileViewModel: ProfileViewModel
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View? {
@@ -29,6 +33,7 @@ class HomeFragment : Fragment() {
     }
 
     private fun bindViews() {
+        profileViewModel = (activity as MainActivity).profileViewModel
         binding.addButton.setOnClickListener {
             findNavController().navigate(R.id.action_homeFragment_to_addProfileFragment)
         }
@@ -63,6 +68,11 @@ class HomeFragment : Fragment() {
         }
 
         profileAdapter = ProfileAdapter(requireContext())
+        activity?.let {
+            profileViewModel.getAllProfile().observe(viewLifecycleOwner) { note ->
+                profileAdapter.differ.submitList(note)
+            }
+        }
         binding.recyclerView.apply {
             adapter = profileAdapter
             layoutManager = LinearLayoutManager(
