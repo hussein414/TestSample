@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_margin="5dp"
+    android:orientation="vertical"
+    android:background="@drawable/background_rounded">
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/smooth"
+        android:layout_width="50dp"
+        android:layout_height="2dp"
+        android:layout_margin="10dp"
+        android:layout_gravity="center"
+        app:cardBackgroundColor="@color/white"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/smooth">
+
+        <Button
+            android:id="@+id/status"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_margin="20dp"
+            android:text="Status"
+            android:textColor="@color/main_color"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            app:backgroundTint="@color/white" />
+
+        <Button
+            android:id="@+id/edite"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_margin="20dp"
+            android:text="Edite"
+            android:textColor="#00C853"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            app:backgroundTint="@color/white" />
+
+
+        <Button
+            android:id="@+id/delete"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_margin="20dp"
+            android:text="delete"
+            android:textColor="#D50000"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            app:backgroundTint="@color/white" />
+    </androidx.appcompat.widget.LinearLayoutCompat>
+
+
+</LinearLayout>
