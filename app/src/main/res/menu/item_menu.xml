@@ -13,9 +13,4 @@
         android:title="Edit" />
 
 
-    <item
-        android:id="@+id/delete"
-        android:icon="@drawable/baseline_delete_24"
-        android:orderInCategory="100"
-        android:title="Delete" />
 </menu>

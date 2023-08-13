@@ -1,4 +1,4 @@
-package com.example.testsample.ui.view.adapter
+package com.example.testsample.ui.adapter
 
 import android.content.Context
 import android.view.LayoutInflater
@@ -8,9 +8,13 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView.Adapter
 import com.example.testsample.data.model.ProfileModel
 import com.example.testsample.databinding.SwitchItemBinding
+import com.example.testsample.ui.event.DeleteClickListener
 
 
-class ProfileAdapter(private val context: Context) : Adapter<ProfileViewHolder>() {
+class ProfileAdapter(
+    private val context: Context,
+    private val deleteClickListener: DeleteClickListener
+) : Adapter<ProfileViewHolder>() {
 
     private val differCallback = object : DiffUtil.ItemCallback<ProfileModel>() {
         override fun areItemsTheSame(oldItem: ProfileModel, newItem: ProfileModel): Boolean {
@@ -33,7 +37,7 @@ class ProfileAdapter(private val context: Context) : Adapter<ProfileViewHolder>(
 
     override fun onBindViewHolder(holder: ProfileViewHolder, position: Int) {
         val currentItem = differ.currentList[position]
-        holder.bindViews(context, currentItem)
+        holder.bindViews(context, currentItem, deleteClickListener)
     }
 
     override fun getItemCount(): Int = differ.currentList.size

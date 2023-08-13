@@ -2,7 +2,7 @@
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/nav_graphj"
+    android:id="@+id/nav_graph"
     app:startDestination="@id/homeFragment">
 
     <fragment
@@ -32,8 +32,21 @@
             app:popEnterAnim="@anim/slide_in_left"
             app:popExitAnim="@anim/slide_out_right" />
         <action
-            android:id="@+id/action_homeFragment_to_bottomSheetFragment"
-            app:destination="@id/bottomSheetFragment" />
+            android:id="@+id/action_homeFragment_to_editProfileFragment"
+            app:destination="@id/editProfileFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"
+            />
+        <action
+            android:id="@+id/action_homeFragment_to_statusProfileFragment"
+            app:destination="@id/statusProfileFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"
+            />
     </fragment>
     <fragment
         android:id="@+id/addProfileFragment"
@@ -62,7 +75,12 @@
             app:popExitAnim="@anim/slide_out_right" />
         <action
             android:id="@+id/action_aboutFragment_to_donateFragment"
-            app:destination="@id/donateFragment" />
+            app:destination="@id/donateFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"
+            />
     </fragment>
     <fragment
         android:id="@+id/donateFragment"
@@ -78,11 +96,40 @@
             app:popExitAnim="@anim/slide_out_right" />
         <action
             android:id="@+id/action_donateFragment_to_aboutFragment"
-            app:destination="@id/aboutFragment" />
+            app:destination="@id/aboutFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"
+            />
     </fragment>
-    <dialog
-        android:id="@+id/bottomSheetFragment"
-        android:name="com.example.testsample.ui.view.fragment.sheet.BottomSheetFragment"
-        android:label="fragment_bottom_sheet"
-        tools:layout="@layout/fragment_bottom_sheet" />
+    <fragment
+        android:id="@+id/editProfileFragment"
+        android:name="com.example.testsample.ui.view.fragment.EditProfileFragment"
+        android:label="fragment_edit_profile"
+        tools:layout="@layout/fragment_edit_profile" >
+        <action
+            android:id="@+id/action_editProfileFragment_to_homeFragment"
+            app:destination="@id/homeFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"
+            />
+    </fragment>
+    <fragment
+        android:id="@+id/statusProfileFragment"
+        android:name="com.example.testsample.ui.view.fragment.menu.StatusProfileFragment"
+        android:label="fragment_status_profile"
+        tools:layout="@layout/fragment_status_profile" >
+        <action
+            android:id="@+id/action_statusProfileFragment_to_homeFragment"
+            app:destination="@id/homeFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"
+            />
+    </fragment>
+
 </navigation>

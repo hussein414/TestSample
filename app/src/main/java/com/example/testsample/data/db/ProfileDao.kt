@@ -23,4 +23,8 @@ interface ProfileDao {
 
     @Query("SELECT * FROM ProfileModel ORDER BY id DESC")
     fun getAllNotes(): LiveData<List<ProfileModel>>
+
+
+    @Query("SELECT COUNT(*) FROM ProfileModel WHERE name = :stringValue")
+    suspend fun checkDuplicate(stringValue: String): Int
 }

@@ -34,18 +34,31 @@ class AddProfileFragment : Fragment() {
             val name = binding.inputName.text.toString().trim()
             val multiType = binding.inputType.text.toString().trim()
             if (name.isNotEmpty() && multiType.isNotEmpty()) {
-                val profileModel = ProfileModel(0, name, multiType)
-                profileViewModel.addProfile(profileModel)
-                Snackbar.make(
-                    binding.root,
-                    "Successes",
-                    Snackbar.LENGTH_SHORT
-                ).show()
-                findNavController().navigate(R.id.action_addProfileFragment_to_homeFragment)
-            } else {
+                profileViewModel.checkDuplicate(name).observe(viewLifecycleOwner){isDuplicate->
+                    if (isDuplicate){
+                        Toast.makeText(requireContext(),"There is duplicate data",Toast.LENGTH_SHORT).show()
+                    }else{
+                        insertProfile(name,multiType)
+                    }
+                }
+            }else {
                 Toast.makeText(requireContext(), "please Finished filed", Toast.LENGTH_SHORT)
                     .show()
             }
         }
+        binding.skip.setOnClickListener {
+            findNavController().navigate(R.id.action_addProfileFragment_to_homeFragment)
+        }
+    }
+
+    private fun insertProfile(name:String,multiType:String){
+        val profileModel = ProfileModel(0, name, multiType)
+        profileViewModel.addProfile(profileModel)
+        Snackbar.make(
+            binding.root,
+            "Successes",
+            Snackbar.LENGTH_SHORT
+        ).show()
+        findNavController().navigate(R.id.action_addProfileFragment_to_homeFragment)
     }
 }

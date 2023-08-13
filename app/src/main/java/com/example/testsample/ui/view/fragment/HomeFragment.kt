@@ -1,5 +1,6 @@
 package com.example.testsample.ui.view.fragment
 
+import android.app.AlertDialog
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -11,14 +12,16 @@ import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.testsample.R
+import com.example.testsample.data.model.ProfileModel
 import com.example.testsample.databinding.FragmentHomeBinding
-import com.example.testsample.ui.view.adapter.ProfileAdapter
+import com.example.testsample.ui.adapter.ProfileAdapter
+import com.example.testsample.ui.event.DeleteClickListener
 import com.example.testsample.ui.view.activites.MainActivity
 
 import com.example.testsample.ui.viewmodel.ProfileViewModel
 
 
-class HomeFragment : Fragment() {
+class HomeFragment : Fragment(), DeleteClickListener {
 
     private lateinit var binding: FragmentHomeBinding
     lateinit var profileAdapter: ProfileAdapter
@@ -67,7 +70,7 @@ class HomeFragment : Fragment() {
 
         }
 
-        profileAdapter = ProfileAdapter(requireContext())
+        profileAdapter = ProfileAdapter(requireContext(),this)
         activity?.let {
             profileViewModel.getAllProfile().observe(viewLifecycleOwner) { note ->
                 profileAdapter.differ.submitList(note)
@@ -80,5 +83,16 @@ class HomeFragment : Fragment() {
             )
             setHasFixedSize(true)
         }
+    }
+
+    override fun onDeleteClickItem(profileModel: ProfileModel) {
+        AlertDialog.Builder(activity).apply {
+            setTitle("Delete Profile")
+            setMessage("Are you sure to delete this profile?")
+            setPositiveButton("Yes") { _, _ ->
+                profileViewModel.deleteProfile(profileModel)
+            }
+            setNegativeButton("No", null)
+        }.create().show()
     }
 }
