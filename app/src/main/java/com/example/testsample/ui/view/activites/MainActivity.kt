@@ -23,10 +23,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
         setStatusBar()
 
-
-
         setViewModel()
-
     }
 
     private fun setStatusBar() {
