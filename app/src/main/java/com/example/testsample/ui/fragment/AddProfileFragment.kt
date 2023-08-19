@@ -1,4 +1,4 @@
-package com.example.testsample.ui.view.fragment
+package com.example.testsample.ui.fragment
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -10,8 +10,8 @@ import androidx.navigation.fragment.findNavController
 import com.example.testsample.R
 import com.example.testsample.data.model.ProfileModel
 import com.example.testsample.databinding.FragmentAddProfileBinding
-import com.example.testsample.ui.view.activites.MainActivity
-import com.example.testsample.ui.viewmodel.ProfileViewModel
+import com.example.testsample.ui.activites.MainActivity
+import com.example.testsample.ui.viewmodel.profile.ProfileViewModel
 import com.google.android.material.snackbar.Snackbar
 
 

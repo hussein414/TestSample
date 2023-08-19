@@ -9,7 +9,8 @@ import android.net.VpnService
 import android.os.Build
 import android.os.ParcelFileDescriptor
 import androidx.annotation.RequiresApi
-import com.example.testsample.ui.view.activites.MainActivity
+import com.example.testsample.ui.activites.MainActivity
+import com.example.testsample.utils.isMyVpnServiceRunning
 
 
 class MyVpnService : VpnService() {
@@ -96,4 +97,6 @@ class MyVpnService : VpnService() {
 
         startForeground(NOTIFICATION_ID, notification)
     }
+
+
 }

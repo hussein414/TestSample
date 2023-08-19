@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/homeFragment"
-        android:name="com.example.testsample.ui.view.fragment.HomeFragment"
+        android:name="com.example.testsample.ui.fragment.HomeFragment"
         android:label="fragment_home"
         tools:layout="@layout/fragment_home">
         <action
@@ -47,10 +47,18 @@
             app:popEnterAnim="@anim/slide_in_left"
             app:popExitAnim="@anim/slide_out_right"
             />
+        <action
+            android:id="@+id/action_homeFragment_to_policyFragment"
+            app:destination="@id/policyFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"
+            />
     </fragment>
     <fragment
         android:id="@+id/addProfileFragment"
-        android:name="com.example.testsample.ui.view.fragment.AddProfileFragment"
+        android:name="com.example.testsample.ui.fragment.AddProfileFragment"
         android:label="fragment_add_profile"
         tools:layout="@layout/fragment_add_profile">
         <action
@@ -63,7 +71,7 @@
     </fragment>
     <fragment
         android:id="@+id/aboutFragment"
-        android:name="com.example.testsample.ui.view.fragment.menu.AboutFragment"
+        android:name="com.example.testsample.ui.fragment.menu.AboutFragment"
         android:label="fragment_about"
         tools:layout="@layout/fragment_about">
         <action
@@ -84,7 +92,7 @@
     </fragment>
     <fragment
         android:id="@+id/donateFragment"
-        android:name="com.example.testsample.ui.view.fragment.menu.DonateFragment"
+        android:name="com.example.testsample.ui.fragment.menu.DonateFragment"
         android:label="fragment_donate"
         tools:layout="@layout/fragment_donate">
         <action
@@ -105,7 +113,7 @@
     </fragment>
     <fragment
         android:id="@+id/editProfileFragment"
-        android:name="com.example.testsample.ui.view.fragment.EditProfileFragment"
+        android:name="com.example.testsample.ui.fragment.EditProfileFragment"
         android:label="fragment_edit_profile"
         tools:layout="@layout/fragment_edit_profile" >
         <action
@@ -119,12 +127,48 @@
     </fragment>
     <fragment
         android:id="@+id/statusProfileFragment"
-        android:name="com.example.testsample.ui.view.fragment.menu.StatusProfileFragment"
+        android:name="com.example.testsample.ui.fragment.menu.StatusProfileFragment"
         android:label="fragment_status_profile"
         tools:layout="@layout/fragment_status_profile" >
         <action
             android:id="@+id/action_statusProfileFragment_to_homeFragment"
             app:destination="@id/homeFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"
+            />
+    </fragment>
+    <fragment
+        android:id="@+id/policyFragment"
+        android:name="com.example.testsample.ui.fragment.policy.PolicyFragment"
+        android:label="fragment_policy"
+        tools:layout="@layout/fragment_policy" >
+        <action
+            android:id="@+id/action_policyFragment_to_homeFragment"
+            app:destination="@id/homeFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"
+            />
+        <action
+            android:id="@+id/action_policyFragment_to_policyAllFragment"
+            app:destination="@id/policyAllFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"
+            />
+    </fragment>
+    <fragment
+        android:id="@+id/policyAllFragment"
+        android:name="com.example.testsample.ui.fragment.policy.PackageNameFragment"
+        android:label="fragment_policy_all"
+        tools:layout="@layout/fragment_package_name" >
+        <action
+            android:id="@+id/action_policyAllFragment_to_policyFragment"
+            app:destination="@id/policyFragment"
             app:enterAnim="@anim/slide_in_right"
             app:exitAnim="@anim/slide_out_left"
             app:popEnterAnim="@anim/slide_in_left"

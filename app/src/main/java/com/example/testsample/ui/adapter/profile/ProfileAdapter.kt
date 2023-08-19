@@ -1,4 +1,4 @@
-package com.example.testsample.ui.adapter
+package com.example.testsample.ui.adapter.profile
 
 import android.content.Context
 import android.view.LayoutInflater

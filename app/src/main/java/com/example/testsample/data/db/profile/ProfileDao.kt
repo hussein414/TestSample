@@ -1,4 +1,4 @@
-package com.example.testsample.data.db
+package com.example.testsample.data.db.profile
 
 import androidx.lifecycle.LiveData
 import androidx.room.Dao

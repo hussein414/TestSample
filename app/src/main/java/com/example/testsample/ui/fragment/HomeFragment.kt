@@ -1,4 +1,4 @@
-package com.example.testsample.ui.view.fragment
+package com.example.testsample.ui.fragment
 
 import android.app.AlertDialog
 import android.os.Bundle
@@ -12,23 +12,24 @@ import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.testsample.R
+import com.example.testsample.data.model.PolicyModel
 import com.example.testsample.data.model.ProfileModel
 import com.example.testsample.databinding.FragmentHomeBinding
-import com.example.testsample.ui.adapter.ProfileAdapter
+import com.example.testsample.ui.adapter.profile.ProfileAdapter
 import com.example.testsample.ui.event.DeleteClickListener
-import com.example.testsample.ui.view.activites.MainActivity
+import com.example.testsample.ui.activites.MainActivity
 
-import com.example.testsample.ui.viewmodel.ProfileViewModel
+import com.example.testsample.ui.viewmodel.profile.ProfileViewModel
 
 
 class HomeFragment : Fragment(), DeleteClickListener {
 
     private lateinit var binding: FragmentHomeBinding
-    lateinit var profileAdapter: ProfileAdapter
+    private lateinit var profileAdapter: ProfileAdapter
     private lateinit var profileViewModel: ProfileViewModel
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         // Inflate the layout for this fragment
         binding = FragmentHomeBinding.inflate(inflater, container, false)
         bindViews()
@@ -60,6 +61,12 @@ class HomeFragment : Fragment(), DeleteClickListener {
                         return@OnMenuItemClickListener true
                     }
 
+                    R.id.policy->{
+                        navHostFragment!!.findNavController()
+                            .navigate(R.id.action_homeFragment_to_policyFragment)
+                        return@OnMenuItemClickListener true
+                    }
+
                     else -> false
                 }
             })
@@ -85,7 +92,7 @@ class HomeFragment : Fragment(), DeleteClickListener {
         }
     }
 
-    override fun onDeleteClickItem(profileModel: ProfileModel) {
+    override fun onProfileDeleteClickItem(profileModel: ProfileModel) {
         AlertDialog.Builder(activity).apply {
             setTitle("Delete Profile")
             setMessage("Are you sure to delete this profile?")
@@ -94,5 +101,9 @@ class HomeFragment : Fragment(), DeleteClickListener {
             }
             setNegativeButton("No", null)
         }.create().show()
+    }
+
+    override fun onPolicyDeleteClickItem(policyModel: PolicyModel) {
+        TODO("Not yet implemented")
     }
 }

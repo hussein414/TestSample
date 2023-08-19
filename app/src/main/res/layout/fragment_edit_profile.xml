@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     android:background="@color/main_color"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".ui.view.fragment.EditProfileFragment">
+    tools:context=".ui.fragment.EditProfileFragment">
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/header"
         android:layout_width="0dp"

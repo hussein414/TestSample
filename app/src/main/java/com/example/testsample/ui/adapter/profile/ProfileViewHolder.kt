@@ -1,13 +1,10 @@
-package com.example.testsample.ui.adapter
+package com.example.testsample.ui.adapter.profile
 
-import android.app.AlertDialog
 import android.content.Context
-import android.graphics.Color
 import android.os.Bundle
 import android.view.MenuInflater
 import android.view.View
 import androidx.appcompat.widget.PopupMenu
-import androidx.navigation.NavDirections
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import com.example.testsample.R
@@ -15,8 +12,6 @@ import com.example.testsample.data.model.ProfileModel
 
 import com.example.testsample.databinding.SwitchItemBinding
 import com.example.testsample.ui.event.DeleteClickListener
-import com.example.testsample.ui.view.fragment.HomeFragment
-import com.example.testsample.ui.viewmodel.ProfileViewModel
 
 
 class ProfileViewHolder(private val binding: SwitchItemBinding) : ViewHolder(binding.root) {
@@ -56,7 +51,7 @@ class ProfileViewHolder(private val binding: SwitchItemBinding) : ViewHolder(bin
                 popup.show()
             }
             binding.delete.setOnClickListener {
-                deleteClickListener.onDeleteClickItem(model)
+                deleteClickListener.onProfileDeleteClickItem(model)
             }
             name.text = model.name
         }

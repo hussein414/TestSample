@@ -2,29 +2,24 @@ package com.example.testsample.vpnclient
 
 import android.content.Context
 import android.content.Intent
-import android.content.SharedPreferences
 import android.net.VpnService
 import android.os.Bundle
-import android.widget.Button
 import android.widget.EditText
 import androidx.activity.result.contract.ActivityResultContract
 import androidx.appcompat.app.AppCompatActivity
-import com.example.testsample.R
 import com.fanoos.vpnclient.vpn.MyVpnService
-import com.fanoos.vpnclient.vpn.isMyVpnServiceRunning
+import com.example.testsample.utils.isMyVpnServiceRunning
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
 import java.io.File
-import java.util.UUID
 
 class MainActivity : AppCompatActivity(){
-    var myStart:Boolean=false;
+    private var myStart:Boolean=false;
     private lateinit var editText: EditText
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
 
         setupUI()
         //val btnStartVPN = findViewById<Button>(R.id.btnStartVPN)

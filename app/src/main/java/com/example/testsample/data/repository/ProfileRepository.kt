@@ -1,6 +1,6 @@
 package com.example.testsample.data.repository
 
-import com.example.testsample.data.db.ProfileDatabase
+import com.example.testsample.data.db.profile.ProfileDatabase
 import com.example.testsample.data.model.ProfileModel
 
 class ProfileRepository(private val profileDatabase: ProfileDatabase) {
