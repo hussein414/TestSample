@@ -1,32 +1,77 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".ui.fragment.policy.PolicyFragment">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/header"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="10dp"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Routing policy"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="@id/disAllow"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@id/disable" />
+
+        <CheckBox
+            android:id="@+id/disable"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Disable"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/disAllow"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <CheckBox
+            android:id="@+id/allow"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Allow"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/disAllow"
+            app:layout_constraintTop_toBottomOf="@id/disable" />
+
+        <CheckBox
+            android:id="@+id/disAllow"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="DisAllow"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/allow" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerViewSelected"
         android:layout_width="match_parent"
-        android:padding="10dp"
-        tools:listitem="@layout/policy_item"
         android:layout_height="0dp"
+        android:padding="10dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@id/header"
+        tools:listitem="@layout/policy_item" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/addButton"
         android:layout_width="50dp"
         android:layout_height="50dp"
         android:layout_margin="20dp"
+        android:contentDescription="@string/app_name"
+        android:paddingEnd="5dp"
         android:src="@drawable/baseline_add_24"
         app:backgroundTint="@color/main_color"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:tint="@color/white"
-        android:paddingEnd="5dp"
-        tools:ignore="RtlSymmetry"
-        android:id="@+id/addButton"
-        android:contentDescription="@string/app_name" />
+        tools:ignore="RtlSymmetry" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
