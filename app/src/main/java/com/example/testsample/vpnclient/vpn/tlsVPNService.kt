@@ -63,8 +63,8 @@ class tlsVPNService : VpnService() {
     companion object {
         const val NOTIFICATION_ID = 1
         const val NOTIFICATION_CHANNEL_ID = "MyVpnService.Example"
-        const val ACTION_CONNECT = "com.fanoos.vpnclient.CONNECT"
-        const val ACTION_DISCONNECT = "com.fanoos.vpnclient.DISCONNECT"
+        const val ACTION_CONNECT = "com.example.testsample.vpnclient.CONNECT"
+        const val ACTION_DISCONNECT = "com.example.testsample.vpnclient.DISCONNECT"
     }
 
     @RequiresApi(Build.VERSION_CODES.M)

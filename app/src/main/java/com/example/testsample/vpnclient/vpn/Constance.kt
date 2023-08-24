@@ -1,6 +1,6 @@
 package com.example.testsample.vpnclient.vpn
 
 object Constance {
-    var isMyVpnServiceRunning = true
+    var isMyVpnServiceRunning = false
     var vpnPermission = false
 }
