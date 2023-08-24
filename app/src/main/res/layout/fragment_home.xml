@@ -42,7 +42,7 @@
             tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck" />
     </androidx.constraintlayout.widget.ConstraintLayout>
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerView"
+        android:id="@+id/recyclerViewProfile"
         android:layout_width="match_parent"
         android:padding="10dp"
         tools:listitem="@layout/switch_item"

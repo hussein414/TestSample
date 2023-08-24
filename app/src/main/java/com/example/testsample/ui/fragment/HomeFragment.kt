@@ -83,7 +83,7 @@ class HomeFragment : Fragment(), DeleteClickListener {
                 profileAdapter.differ.submitList(note)
             }
         }
-        binding.recyclerView.apply {
+        binding.recyclerViewProfile.apply {
             adapter = profileAdapter
             layoutManager = LinearLayoutManager(
                 requireContext(), LinearLayoutManager.VERTICAL, false

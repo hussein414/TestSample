@@ -8,6 +8,7 @@ import android.provider.Settings
 import android.view.Window
 import android.view.WindowManager
 import android.widget.EditText
+import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContract
 import androidx.appcompat.app.AppCompatActivity
 
@@ -22,62 +23,31 @@ import com.example.testsample.ui.viewmodel.policy.PolicyViewModel
 import com.example.testsample.ui.viewmodel.policy.PolicyViewModelFactory
 import com.example.testsample.ui.viewmodel.profile.ProfileViewModel
 import com.example.testsample.ui.viewmodel.profile.ProfileViewModelFactory
+import com.example.testsample.utils.VpnCaller
+import com.example.testsample.vpnclient.vpn.Constance
 import com.example.testsample.vpnclient.vpn.tlsVPNService
 import java.io.File
 import java.util.UUID
+import kotlin.jvm.internal.Intrinsics.Kotlin
 
 
 class MainActivity : AppCompatActivity() {
     //NEW-CHANGES
-    fun getUUID():String {
-        val androidId = Settings.Secure.getString(contentResolver, Settings.Secure.ANDROID_ID)
-        if (androidId != null && androidId.isNotEmpty()) {
-            println("ANDROID_ID: $androidId")
-            return UUID.nameUUIDFromBytes(androidId.toByteArray()).toString()
-        } else {
-            return UUID.randomUUID().toString()
-        }
-    }
-    var myStart:Boolean=false;
-    private lateinit var editText: EditText
-    fun startVpn(){
-        startService(Intent(this@MainActivity, tlsVPNService::class.java).also {
-            it.putExtra("CONFIG_NAME",save_config())
-            it.putExtra("UUID",getUUID())
-            it.action = tlsVPNService.ACTION_CONNECT })
-    }
 
-    private fun stopVpn() {
-        startService(Intent(this@MainActivity, tlsVPNService::class.java).also { it.action = tlsVPNService.ACTION_DISCONNECT })
-    }
+    //NEW-CHANGES
 
-    private fun load_config(){
-        val filename = "tlsTunnel.cfg"
-        val file = File(this.filesDir, filename)
-        if (file.canRead()) {
-            val config = file.readText()
-            if (config.isEmpty() == false) editText.setText(config)
-        }
-    }
-
-    private fun save_config():String{
-        val filename = "tlsTunnel.cfg"
-        val file = File(this.filesDir, filename)
-        file.writeText(editText.text.toString())
-        return file.absolutePath
-    }
-    private fun setupUI(isStart: Boolean? = null) {
-        /*        if (isStart == true) {
-                    findViewById<Button>(R.id.btnStartVPN).text = getString(R.string.stop_vpn)
-                } else if (isStart == false) {
-                    findViewById<Button>(R.id.btnStartVPN).text = getString(R.string.start_vpn)
-                } else {
-                    if (isMyVpnServiceRunning) {
-                        findViewById<Button>(R.id.btnStartVPN).text = getString(R.string.stop_vpn)
-                    } else {
-                        findViewById<Button>(R.id.btnStartVPN).text = getString(R.string.start_vpn)
-                    }
-                }*/
+    private lateinit var binding: ActivityMainBinding
+    lateinit var profileViewModel: ProfileViewModel
+    lateinit var policyViewModel: PolicyViewModel
+    lateinit var vpnCaller: VpnCaller
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        binding = ActivityMainBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+        setStatusBar()
+        setProfileFactoryViewModel()
+        setPolicyFactoryViewModel()
+        prepareVpn()
     }
 
     class VpnContent : ActivityResultContract<Intent, Boolean>() {
@@ -89,52 +59,20 @@ class MainActivity : AppCompatActivity() {
             return resultCode == RESULT_OK
         }
     }
+
     private val vpnContent = registerForActivityResult(VpnContent()) {
         if (it) {
-            startVpn()
+          Constance.vpnPermission = true
         }
     }
 
     private fun prepareVpn() {
         VpnService.prepare(this@MainActivity)?.let {
             vpnContent.launch(it)
-        } ?: kotlin.run {
-            startVpn()
         }
-    }
-    private fun vpnOnCreate(){
-        //setContentView(R.layout.activity_main)
-
-        // setupUI()
-        //val btnStartVPN = findViewById<Button>(R.id.btnStartVPN)
-
-        //editText = findViewById(R.id.config)
-        //load_config();
-
-        /*btnStartVPN.setOnClickListener {
-            if (isMyVpnServiceRunning) {
-                stopVpn()
-                setupUI(isStart = false)
-            } else {
-                prepareVpn()
-                setupUI(isStart = true)
+            ?: kotlin.run {
+                Constance.vpnPermission = true
             }
-        }*/
-    }
-    //NEW-CHANGES
-
-    private lateinit var binding: ActivityMainBinding
-    lateinit var profileViewModel: ProfileViewModel
-    lateinit var policyViewModel: PolicyViewModel
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        binding = ActivityMainBinding.inflate(layoutInflater)
-        setContentView(binding.root)
-        setStatusBar()
-
-        setProfileFactoryViewModel()
-        setPolicyFactoryViewModel()
-        vpnOnCreate()
     }
 
     private fun setStatusBar() {

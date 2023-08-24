@@ -14,13 +14,14 @@ import android.widget.Toast
 import androidx.annotation.RequiresApi
 import com.example.testsample.ui.activites.MainActivity
 import com.example.testsample.vpnclient.tlsTunnel
+import com.example.testsample.vpnclient.vpn.Constance.isMyVpnServiceRunning
 
 
 class tlsVPNService : VpnService() {
-    var uuid:String=""
+    var uuid: String = ""
     private val MONITOR_INTERVAL: Long = 1000 //in MS
-    private var V4Address:String = "0.0.0.0"
-    private var V4PL:Int = 0;
+    private var V4Address: String = "0.0.0.0"
+    private var V4PL: Int = 0;
     private var connected = false
     private lateinit var vpnInterface: ParcelFileDescriptor
 
@@ -45,12 +46,12 @@ class tlsVPNService : VpnService() {
             synchronized(isMyVpnServiceRunning) {
                 if (isMyVpnServiceRunning) {
                     var newV4Address = tlsTunnel.getVpnAddress()
-                    if (newV4Address.equals(V4Address)==false) {
-                        V4Address=newV4Address
-                        showToast("address "+V4Address+" assigned")
+                    if (newV4Address.equals(V4Address) == false) {
+                        V4Address = newV4Address
+                        showToast("address " + V4Address + " assigned")
                         if (connected)
                             disconnect()
-                        if (newV4Address.equals("0.0.0.0")==false)
+                        if (newV4Address.equals("0.0.0.0") == false)
                             connect()
                     }
                 }
@@ -58,6 +59,7 @@ class tlsVPNService : VpnService() {
             monitorHandler.postDelayed(this, MONITOR_INTERVAL)
         }
     }
+
     companion object {
         const val NOTIFICATION_ID = 1
         const val NOTIFICATION_CHANNEL_ID = "MyVpnService.Example"
@@ -78,7 +80,7 @@ class tlsVPNService : VpnService() {
             START_NOT_STICKY
         } else {
             showToast("vpn start!!!")
-            uuid=intent?.getStringExtra("UUID").toString()
+            uuid = intent?.getStringExtra("UUID").toString()
             vpnStart(intent?.getStringExtra("CONFIG_NAME").toString())
             START_STICKY
         }
@@ -89,6 +91,7 @@ class tlsVPNService : VpnService() {
         super.onDestroy()
         vpnStop()
     }
+
     private fun vpnStop() {
         synchronized(isMyVpnServiceRunning) {
             if (isMyVpnServiceRunning) {
@@ -101,30 +104,32 @@ class tlsVPNService : VpnService() {
             }
         }
     }
-    private fun vpnStart(configName:String){
-        synchronized(isMyVpnServiceRunning){
-            if (isMyVpnServiceRunning ==false){
-                V4Address="0.0.0.0"
+
+    private fun vpnStart(configName: String) {
+        synchronized(isMyVpnServiceRunning) {
+            if (isMyVpnServiceRunning == false) {
+                V4Address = "0.0.0.0"
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
                     updateForegroundNotification()
                 }
                 isMyVpnServiceRunning = true
-                tlsTunnel.tunnelStart(uuid,configName)
+                tlsTunnel.tunnelStart(uuid, configName)
                 monitorHandler.postDelayed(monitorRunnable, MONITOR_INTERVAL)
             }
         }
     }
+
     private fun connect() {
         vpnInterface = createVPNInterface()
         tlsTunnel.setTunnelFd(vpnInterface.fd)
-        connected=true
+        connected = true
         showToast("tunnel start")
     }
 
     private fun disconnect() {
         tlsTunnel.setTunnelFd(-1)
         vpnInterface.close()
-        connected=false
+        connected = false
         showToast("tunnel stop")
     }
 
@@ -144,7 +149,8 @@ class tlsVPNService : VpnService() {
                 .addRoute("0.0.0.0", 0)
                 .setBlocking(false)
                 .addDisallowedApplication(getPackageName())
-                .establish() ?: throw IllegalStateException("createVPNInterface illegal state")       }
+                .establish() ?: throw IllegalStateException("createVPNInterface illegal state")
+        }
     }
 
     @RequiresApi(Build.VERSION_CODES.O)
