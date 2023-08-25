@@ -18,31 +18,16 @@ import com.example.testsample.utils.VpnCaller
 import com.example.testsample.vpnclient.vpn.Constance
 
 
-class ProfileViewHolder(private val binding: SwitchItemBinding) : ViewHolder(binding.root) {
+class ProfileViewHolder(val binding: SwitchItemBinding) : ViewHolder(binding.root) {
 
     fun bindViews(
         context: Context,
         model: ProfileModel,
         deleteClickListener: DeleteClickListener,
     ) {
-        val vpnCaller = VpnCaller(context)
-        binding.apply {
-            switchButton.onButton.setOnClickListener {
-                binding.switchButton.offButton.visibility = View.VISIBLE
-                binding.switchButton.onButton.visibility = View.GONE
-                binding.delete.visibility = View.VISIBLE
-                val recyclerView = binding.root.findViewById<RecyclerView>(R.id.recyclerViewProfile)
 
-            }
-            switchButton.offButton.setOnClickListener {
-                binding.switchButton.onButton.visibility = View.VISIBLE
-                binding.switchButton.offButton.visibility = View.GONE
-                binding.delete.visibility = View.INVISIBLE
-                if (Constance.vpnPermission) {
-                    vpnCaller.startVpn()
-                }
-            }
-            parent.setOnClickListener {
+        binding.apply {
+            name.setOnClickListener {
                 val popup = PopupMenu(context, binding.parent)
                 val inflater: MenuInflater = popup.menuInflater
                 inflater.inflate(R.menu.item_menu, popup.menu)
