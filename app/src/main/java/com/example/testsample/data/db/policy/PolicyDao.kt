@@ -28,4 +28,8 @@ interface PolicyDao {
 
     @Query("SELECT * FROM PolicyModel ORDER BY id DESC")
     fun getAllPolicy(): LiveData<List<PolicyModel>>
+
+
+    @Query("SELECT COUNT(*) FROM PolicyModel WHERE name = :stringValue")
+    suspend fun checkDuplicate(stringValue: String): Int
 }

@@ -22,33 +22,25 @@ class VpnCaller(private var context: Context) {
     }
 
     var myStart: Boolean = false;
-    fun startVpn() {
+    fun startVpn(multiline: String) {
         context.startService(Intent(context, tlsVPNService::class.java).also {
-            it.putExtra("CONFIG_NAME", saveConfig())
+            it.putExtra("CONFIG_NAME", saveConfig(multiline))
             it.putExtra("UUID", getUUID())
             it.action = tlsVPNService.ACTION_CONNECT
         })
     }
 
-    private fun stopVpn() {
+    fun stopVpn() {
         context.startService(Intent(context, tlsVPNService::class.java).also {
             it.action = tlsVPNService.ACTION_DISCONNECT
         })
     }
 
-    private fun loadConfig() {
-        val filename = "tlsTunnel.cfg"
-        val file = File(context.filesDir, filename)
-        if (file.canRead()) {
-            val config = file.readText()
-//            if (config.isEmpty() == false) editText.setText(config)
-        }
-    }
 
-    private fun saveConfig(): String {
+    private fun saveConfig(config: String): String {
         val filename = "tlsTunnel.cfg"
         val file = File(context.filesDir, filename)
-//        file.writeText(editText.text.toString())
+        file.writeText(config)
         return file.absolutePath
     }
 

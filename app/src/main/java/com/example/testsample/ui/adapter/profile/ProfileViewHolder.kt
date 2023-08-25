@@ -53,6 +53,7 @@ class ProfileViewHolder(val binding: SwitchItemBinding) : ViewHolder(binding.roo
                 deleteClickListener.onProfileDeleteClickItem(model)
             }
             name.text = model.name
+
         }
     }
 

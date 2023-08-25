@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.MenuInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.appcompat.widget.PopupMenu
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.fragment.findNavController
@@ -20,6 +21,7 @@ import com.example.testsample.ui.event.DeleteClickListener
 import com.example.testsample.ui.activites.MainActivity
 
 import com.example.testsample.ui.viewmodel.profile.ProfileViewModel
+import com.example.testsample.vpnclient.vpn.Constance
 
 
 class HomeFragment : Fragment(), DeleteClickListener {
@@ -61,7 +63,7 @@ class HomeFragment : Fragment(), DeleteClickListener {
                         return@OnMenuItemClickListener true
                     }
 
-                    R.id.policy->{
+                    R.id.policy -> {
                         navHostFragment!!.findNavController()
                             .navigate(R.id.action_homeFragment_to_policyFragment)
                         return@OnMenuItemClickListener true
@@ -77,7 +79,7 @@ class HomeFragment : Fragment(), DeleteClickListener {
 
         }
 
-        profileAdapter = ProfileAdapter(requireContext(),this)
+        profileAdapter = ProfileAdapter(requireContext(), this)
         activity?.let {
             profileViewModel.getAllProfile().observe(viewLifecycleOwner) { note ->
                 profileAdapter.differ.submitList(note)
@@ -105,5 +107,12 @@ class HomeFragment : Fragment(), DeleteClickListener {
 
     override fun onPolicyDeleteClickItem(policyModel: PolicyModel) {
         TODO("Not yet implemented")
+    }
+
+    override fun onStart() {
+        super.onStart()
+        if (Constance.isMyVpnServiceRunning && Constance.activeProfile != -1) {
+            profileAdapter.selectedItemId = Constance.activeProfile
+        }
     }
 }
