@@ -57,7 +57,19 @@
         android:layout_height="0dp"
         android:padding="10dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/header"
-        tools:listitem="@layout/policy_item" />
+        app:layout_constraintTop_toBottomOf="@id/header" />
+
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/adding"
+        android:layout_width="150dp"
+        android:layout_height="50dp"
+        android:layout_marginBottom="20dp"
+        android:backgroundTint="@color/main_color"
+        android:text="Adding"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -5,13 +5,17 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.Adapter
+import androidx.recyclerview.widget.RecyclerView.NO_POSITION
 import com.example.testsample.data.model.PolicyModel
 import com.example.testsample.databinding.PackageNameItemBinding
+import com.example.testsample.ui.event.OnItemClickListener
 
-class PackageNameAdapter(private val context: Context) : Adapter<PackageNameViewHolder>() {
-
-    private val selectedItems = mutableListOf<PolicyModel>()
+class PackageNameAdapter(
+    private val context: Context,
+    private val onItemClickListener: OnItemClickListener
+) : Adapter<PackageNameViewHolder>() {
 
 
     private val differCallback = object : DiffUtil.ItemCallback<PolicyModel>() {
@@ -34,13 +38,9 @@ class PackageNameAdapter(private val context: Context) : Adapter<PackageNameView
 
     override fun onBindViewHolder(holder: PackageNameViewHolder, position: Int) {
         val currentItem = differ.currentList[position]
-        holder.bindViews(currentItem, selectedItems, context)
+        holder.bindViews(currentItem, context, onItemClickListener)
     }
 
     override fun getItemCount(): Int = differ.currentList.size
 
-
-    fun getSelectedItems(): List<PolicyModel> {
-        return selectedItems
-    }
 }

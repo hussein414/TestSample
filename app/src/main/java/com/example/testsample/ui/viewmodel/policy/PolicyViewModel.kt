@@ -28,6 +28,10 @@ class PolicyViewModel(app: Application, private val repository: PolicyRepository
         repository.updatePolicy(policyModel)
     }
 
+    fun onTaskCheckedChanged(policyModel: PolicyModel, isChecked: Boolean) = viewModelScope.launch {
+        repository.updatePolicy(policyModel.copy(isSelected = isChecked))
+    }
+
     fun deleteAll() = viewModelScope.launch {
         repository.deleteAll()
     }
