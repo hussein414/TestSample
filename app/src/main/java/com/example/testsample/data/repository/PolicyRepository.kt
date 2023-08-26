@@ -18,6 +18,8 @@ class PolicyRepository(private val policyDatabase: PolicyDatabase) {
 
     fun getAllPolicy() = policyDatabase.getPolicyDao().getAllPolicy()
 
+    fun getSelectedPolicy() = policyDatabase.getPolicyDao().getSelectedPolicy()
+
     suspend fun isDuplicate(stringValue: String): Boolean {
         val duplicateCount = policyDatabase.getPolicyDao().checkDuplicate(stringValue)
         return duplicateCount > 0

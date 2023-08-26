@@ -4,11 +4,8 @@ import android.content.Context
 import android.content.Intent
 import android.net.VpnService
 import android.os.Bundle
-import android.provider.Settings
 import android.view.Window
 import android.view.WindowManager
-import android.widget.EditText
-import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContract
 import androidx.appcompat.app.AppCompatActivity
 
@@ -24,11 +21,7 @@ import com.example.testsample.ui.viewmodel.policy.PolicyViewModelFactory
 import com.example.testsample.ui.viewmodel.profile.ProfileViewModel
 import com.example.testsample.ui.viewmodel.profile.ProfileViewModelFactory
 import com.example.testsample.utils.VpnCaller
-import com.example.testsample.vpnclient.vpn.Constance
-import com.example.testsample.vpnclient.vpn.tlsVPNService
-import java.io.File
-import java.util.UUID
-import kotlin.jvm.internal.Intrinsics.Kotlin
+import com.example.testsample.utils.Constance
 
 
 class MainActivity : AppCompatActivity() {

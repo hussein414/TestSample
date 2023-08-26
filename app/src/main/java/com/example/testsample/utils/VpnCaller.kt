@@ -3,7 +3,7 @@ package com.example.testsample.utils
 import android.content.Context
 import android.content.Intent
 import android.provider.Settings
-import com.example.testsample.vpnclient.vpn.Constance.isMyVpnServiceRunning
+import com.example.testsample.utils.Constance.isMyVpnServiceRunning
 import com.example.testsample.vpnclient.vpn.tlsVPNService
 import java.io.File
 import java.util.UUID
@@ -26,6 +26,7 @@ class VpnCaller(private var context: Context) {
         context.startService(Intent(context, tlsVPNService::class.java).also {
             it.putExtra("CONFIG_NAME", saveConfig(multiline))
             it.putExtra("UUID", getUUID())
+            it.putStringArrayListExtra("POLICY_LIST", Constance.policyList)
             it.action = tlsVPNService.ACTION_CONNECT
         })
     }

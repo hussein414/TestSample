@@ -29,6 +29,8 @@ interface PolicyDao {
     @Query("SELECT * FROM PolicyModel ORDER BY id DESC")
     fun getAllPolicy(): LiveData<List<PolicyModel>>
 
+    @Query("SELECT appName From PolicyModel WHERE isSelected")
+    fun getSelectedPolicy(): LiveData<List<String>>
 
     @Query("SELECT COUNT(*) FROM PolicyModel WHERE shortName = :stringValue")
     suspend fun checkDuplicate(stringValue: String): Int

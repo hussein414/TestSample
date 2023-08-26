@@ -2,12 +2,12 @@ package com.example.testsample.ui.fragment
 
 import android.app.AlertDialog
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.MenuInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.appcompat.widget.PopupMenu
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.fragment.findNavController
@@ -19,9 +19,10 @@ import com.example.testsample.databinding.FragmentHomeBinding
 import com.example.testsample.ui.adapter.profile.ProfileAdapter
 import com.example.testsample.ui.event.DeleteClickListener
 import com.example.testsample.ui.activites.MainActivity
+import com.example.testsample.ui.viewmodel.policy.PolicyViewModel
 
 import com.example.testsample.ui.viewmodel.profile.ProfileViewModel
-import com.example.testsample.vpnclient.vpn.Constance
+import com.example.testsample.utils.Constance
 
 
 class HomeFragment : Fragment(), DeleteClickListener {
@@ -29,6 +30,7 @@ class HomeFragment : Fragment(), DeleteClickListener {
     private lateinit var binding: FragmentHomeBinding
     private lateinit var profileAdapter: ProfileAdapter
     private lateinit var profileViewModel: ProfileViewModel
+    lateinit var policyViewModel: PolicyViewModel
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View {
@@ -111,6 +113,12 @@ class HomeFragment : Fragment(), DeleteClickListener {
 
     override fun onStart() {
         super.onStart()
+        policyViewModel = (activity as MainActivity).policyViewModel
+        activity?.let {
+            policyViewModel.getSelectedPolicy().observe(viewLifecycleOwner) { string ->
+                Constance.policyList = string as ArrayList<String>
+            }
+        }
         if (Constance.isMyVpnServiceRunning && Constance.activeProfile != -1) {
             profileAdapter.selectedItemId = Constance.activeProfile
         }

@@ -14,7 +14,7 @@ import android.widget.Toast
 import androidx.annotation.RequiresApi
 import com.example.testsample.ui.activites.MainActivity
 import com.example.testsample.vpnclient.tlsTunnel
-import com.example.testsample.vpnclient.vpn.Constance.isMyVpnServiceRunning
+import com.example.testsample.utils.Constance.isMyVpnServiceRunning
 
 
 class tlsVPNService : VpnService() {
@@ -25,6 +25,8 @@ class tlsVPNService : VpnService() {
     private var V4PL: Int = 0;
     private var connected = false
     private lateinit var vpnInterface: ParcelFileDescriptor
+
+    lateinit var policyList:ArrayList<String>
 
     private fun showToast(message: String) {
         val handler = Handler(Looper.getMainLooper())
@@ -85,6 +87,7 @@ class tlsVPNService : VpnService() {
         } else {
             showToast("vpn start!!!")
             uuid = intent?.getStringExtra("UUID").toString()
+            policyList= intent?.getStringArrayListExtra("POLICY_LIST")!!
             vpnStart(intent?.getStringExtra("CONFIG_NAME").toString())
             START_STICKY
         }

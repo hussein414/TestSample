@@ -13,7 +13,7 @@ import com.example.testsample.data.model.ProfileModel
 import com.example.testsample.databinding.SwitchItemBinding
 import com.example.testsample.ui.event.DeleteClickListener
 import com.example.testsample.utils.VpnCaller
-import com.example.testsample.vpnclient.vpn.Constance
+import com.example.testsample.utils.Constance
 
 
 class ProfileAdapter(
@@ -22,6 +22,7 @@ class ProfileAdapter(
 ) : Adapter<ProfileViewHolder>() {
     private val vpnCaller = VpnCaller(context)
     var selectedItemId: Int? = null
+
 
     private val differCallback = object : DiffUtil.ItemCallback<ProfileModel>() {
         override fun areItemsTheSame(oldItem: ProfileModel, newItem: ProfileModel): Boolean {

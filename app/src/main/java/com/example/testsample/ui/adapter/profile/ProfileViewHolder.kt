@@ -3,19 +3,14 @@ package com.example.testsample.ui.adapter.profile
 import android.content.Context
 import android.os.Bundle
 import android.view.MenuInflater
-import android.view.View
 import androidx.appcompat.widget.PopupMenu
 import androidx.navigation.findNavController
-import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import com.example.testsample.R
 import com.example.testsample.data.model.ProfileModel
 
 import com.example.testsample.databinding.SwitchItemBinding
-import com.example.testsample.ui.activites.MainActivity
 import com.example.testsample.ui.event.DeleteClickListener
-import com.example.testsample.utils.VpnCaller
-import com.example.testsample.vpnclient.vpn.Constance
 
 
 class ProfileViewHolder(val binding: SwitchItemBinding) : ViewHolder(binding.root) {

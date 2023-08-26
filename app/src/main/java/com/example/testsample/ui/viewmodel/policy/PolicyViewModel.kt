@@ -37,6 +37,9 @@ class PolicyViewModel(app: Application, private val repository: PolicyRepository
     }
 
     fun getAllPolicy() = repository.getAllPolicy()
+
+    fun getSelectedPolicy() = repository.getSelectedPolicy()
+
     fun checkDuplicate(stringValue: String): LiveData<Boolean> {
         val resultLiveData = MutableLiveData<Boolean>()
         viewModelScope.launch {
