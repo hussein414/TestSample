@@ -5,4 +5,5 @@ object Constance {
     var vpnPermission = false
     var activeProfile = -1
     var policyList= arrayListOf<String>()
+    var policy= ""
 }

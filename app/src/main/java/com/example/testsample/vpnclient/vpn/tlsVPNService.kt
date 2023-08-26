@@ -27,6 +27,7 @@ class tlsVPNService : VpnService() {
     private lateinit var vpnInterface: ParcelFileDescriptor
 
     lateinit var policyList:ArrayList<String>
+    lateinit var policy:String
 
     private fun showToast(message: String) {
         val handler = Handler(Looper.getMainLooper())
@@ -88,6 +89,7 @@ class tlsVPNService : VpnService() {
             showToast("vpn start!!!")
             uuid = intent?.getStringExtra("UUID").toString()
             policyList= intent?.getStringArrayListExtra("POLICY_LIST")!!
+            policy=intent?.getStringExtra("POLICY")!!
             vpnStart(intent?.getStringExtra("CONFIG_NAME").toString())
             START_STICKY
         }

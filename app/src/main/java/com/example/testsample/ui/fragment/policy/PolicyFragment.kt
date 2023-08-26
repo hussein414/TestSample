@@ -9,7 +9,6 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.animation.Animation
 import android.view.animation.AnimationUtils
 import android.widget.Toast
 import androidx.navigation.fragment.findNavController
@@ -21,6 +20,7 @@ import com.example.testsample.ui.activites.MainActivity
 import com.example.testsample.ui.adapter.policy.PackageNameAdapter
 import com.example.testsample.ui.event.OnItemClickListener
 import com.example.testsample.ui.viewmodel.policy.PolicyViewModel
+import com.example.testsample.utils.Constance
 
 
 class PolicyFragment : Fragment(), OnItemClickListener {
@@ -75,6 +75,34 @@ class PolicyFragment : Fragment(), OnItemClickListener {
             )
             setHasFixedSize(true)
         }
+        setRoutingPolicyCheck()
+    }
+
+
+    private fun setRoutingPolicyCheck() {
+        binding.disable.setOnCheckedChangeListener { _, isChecked ->
+            if (isChecked) {
+                Constance.policy = binding.disable.text.toString()
+                binding.allow.isChecked = false
+                binding.disAllow.isChecked = false
+            }
+        }
+
+        binding.allow.setOnCheckedChangeListener { _, isChecked ->
+            if (isChecked) {
+                Constance.policy += binding.allow.text.toString()
+                binding.disable.isChecked = false
+                binding.disAllow.isChecked = false
+            }
+        }
+
+        binding.disAllow.setOnCheckedChangeListener { _, isChecked ->
+            if (isChecked) {
+                Constance.policy += binding.disAllow.text.toString()
+                binding.disable.isChecked = false
+                binding.allow.isChecked = false
+            }
+        }
     }
 
     private fun getPhoneUsersApplications(): List<PolicyModel> {
@@ -123,7 +151,8 @@ class PolicyFragment : Fragment(), OnItemClickListener {
             }
             binding.adding.setOnClickListener {
                 findNavController().navigate(R.id.action_policyFragment_to_homeFragment, bundle)
-                Toast.makeText(requireContext(), "Added${item.shortName}", Toast.LENGTH_SHORT).show()
+                Toast.makeText(requireContext(), "Added${item.shortName}", Toast.LENGTH_SHORT)
+                    .show()
             }
         } else {
             binding.adding.visibility = View.GONE
