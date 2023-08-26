@@ -27,6 +27,7 @@ class VpnCaller(private var context: Context) {
             it.putExtra("CONFIG_NAME", saveConfig(multiline))
             it.putExtra("UUID", getUUID())
             it.putStringArrayListExtra("POLICY_LIST", Constance.policyList)
+            it.putExtra("POLICY",Constance.policy)
             it.action = tlsVPNService.ACTION_CONNECT
         })
     }

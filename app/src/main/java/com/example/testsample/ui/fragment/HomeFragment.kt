@@ -96,6 +96,8 @@ class HomeFragment : Fragment(), DeleteClickListener {
         }
     }
 
+
+
     override fun onProfileDeleteClickItem(profileModel: ProfileModel) {
         AlertDialog.Builder(activity).apply {
             setTitle("Delete Profile")
