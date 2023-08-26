@@ -31,7 +31,7 @@ android {
             }
         }
         debug {
-            versionNameSuffix '1.01'
+            versionNameSuffix '1.02'
             debuggable true
         }
     }

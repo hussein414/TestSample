@@ -45,18 +45,4 @@ class VpnCaller(private var context: Context) {
         return file.absolutePath
     }
 
-    private fun setupUI(isStart: Boolean? = null) {
-        if (isStart == true) {
-
-        } else if (isStart == false) {
-
-        } else {
-            if (isMyVpnServiceRunning) {
-
-            } else {
-
-            }
-        }
-    }
-
 }
