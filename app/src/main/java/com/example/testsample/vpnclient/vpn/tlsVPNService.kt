@@ -19,7 +19,8 @@ import com.example.testsample.vpnclient.vpn.Constance.isMyVpnServiceRunning
 
 class tlsVPNService : VpnService() {
     var uuid: String = ""
-    private val MONITOR_INTERVAL: Long = 1000 //in MS
+    private val MONITOR_FAST_INTERVAL: Long = 1000 //in MS
+    private val MONITOR_SLOW_INTERVAL: Long = 10000 //in MS
     private var V4Address: String = "0.0.0.0"
     private var V4PL: Int = 0;
     private var connected = false
@@ -56,7 +57,10 @@ class tlsVPNService : VpnService() {
                     }
                 }
             }
-            monitorHandler.postDelayed(this, MONITOR_INTERVAL)
+            if (connected)
+                monitorHandler.postDelayed(this, MONITOR_SLOW_INTERVAL)
+            else
+                monitorHandler.postDelayed(this, MONITOR_FAST_INTERVAL)
         }
     }
 
@@ -114,7 +118,7 @@ class tlsVPNService : VpnService() {
                 }
                 isMyVpnServiceRunning = true
                 tlsTunnel.tunnelStart(uuid, configName)
-                monitorHandler.postDelayed(monitorRunnable, MONITOR_INTERVAL)
+                monitorHandler.postDelayed(monitorRunnable, MONITOR_FAST_INTERVAL)
             }
         }
     }

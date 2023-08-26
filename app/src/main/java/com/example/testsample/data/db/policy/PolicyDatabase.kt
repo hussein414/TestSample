@@ -6,7 +6,7 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 import com.example.testsample.data.model.PolicyModel
 
-@Database(entities = [PolicyModel::class], version = 2, exportSchema = false)
+@Database(entities = [PolicyModel::class], version = 3, exportSchema = false)
 abstract class PolicyDatabase : RoomDatabase() {
     abstract fun getPolicyDao(): PolicyDao
 
@@ -24,7 +24,7 @@ abstract class PolicyDatabase : RoomDatabase() {
             context.applicationContext,
             PolicyDatabase::class.java,
             "policy_db"
-        ).build()
+        ).fallbackToDestructiveMigration().build()
     }
 
 }

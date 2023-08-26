@@ -1,25 +1,19 @@
 package com.example.testsample.ui.fragment.policy
 
 import android.Manifest
-import android.app.AlertDialog
+import android.content.pm.ApplicationInfo
 import android.content.pm.PackageManager
-import android.content.res.ColorStateList
-import android.graphics.Color
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.testsample.R
 import com.example.testsample.data.model.PolicyModel
-import com.example.testsample.data.model.ProfileModel
 import com.example.testsample.databinding.FragmentPolicyBinding
 import com.example.testsample.ui.activites.MainActivity
 import com.example.testsample.ui.adapter.policy.PackageNameAdapter
-import com.example.testsample.ui.event.DeleteClickListener
 import com.example.testsample.ui.viewmodel.policy.PolicyViewModel
 
 
@@ -45,12 +39,17 @@ class PolicyFragment : Fragment() {
     }
 
     private fun getPackageName() {
-        val packageNames = getApplicationsWithInternetAccess()
+        policyViewModel.deleteAll()
+        val packageNames = getPhoneUsersApplications()
         for (packageName in packageNames) {
-            val appName = packageName.name
+            val appName = packageName.shortName
             if (appName.isNotEmpty()) {
-                val policyModel = PolicyModel(0, appName)
-                policyViewModel.addPolicy(policyModel)
+                policyViewModel.checkDuplicate(appName).observe(viewLifecycleOwner){isDuplicate->
+                    if (!isDuplicate){
+                        val policyModel = PolicyModel(0, packageName.shortName,packageName.appName,false)
+                        policyViewModel.addPolicy(policyModel)
+                    }
+                }
             } else {
                 Toast.makeText(requireContext(), "i cant find package name", Toast.LENGTH_SHORT)
                     .show()
@@ -70,14 +69,15 @@ class PolicyFragment : Fragment() {
             setHasFixedSize(true)
         }
     }
-
-    private fun getApplicationsWithInternetAccess(): List<PolicyModel> {
+    private fun getPhoneUsersApplications(): List<PolicyModel> {
         val packageManager = requireActivity().packageManager
-        val installedApps = packageManager.getInstalledApplications(PackageManager.GET_META_DATA)
-        val appsWithInternetAccess = mutableListOf<PolicyModel>()
+        val installedApps = packageManager.getInstalledApplications(0)
+        val phoneApps = mutableListOf<PolicyModel>()
 
         for (appInfo in installedApps) {
             try {
+                if (appInfo.flags and ApplicationInfo.FLAG_SYSTEM != 0)
+                    continue
                 val packageInfo = packageManager.getPackageInfo(
                     appInfo.packageName,
                     PackageManager.GET_PERMISSIONS
@@ -85,12 +85,10 @@ class PolicyFragment : Fragment() {
                 val permissions = packageInfo.requestedPermissions
                 if (permissions != null) {
                     for (permission in permissions) {
-                        if (permission == Manifest.permission.INTERNET) {
-                            // حذف بخش‌های مشخص از نام بسته
-                            val packageNameWithoutPrefix = removePackagePrefix(appInfo.packageName)
-                            val policyModel = PolicyModel(0, packageNameWithoutPrefix)
-                            appsWithInternetAccess.add(policyModel)
-                            break
+                        val shortname = packageManager.getApplicationLabel(appInfo).toString()
+                        if (permission == Manifest.permission.INTERNET && !shortname.isEmpty()) {
+                            val policyModel = PolicyModel(0, shortname,appInfo.packageName,false)
+                            phoneApps.add(policyModel)
                         }
                     }
                 }
@@ -98,19 +96,7 @@ class PolicyFragment : Fragment() {
                 e.printStackTrace()
             }
         }
-
-        return appsWithInternetAccess
-    }
-
-    private fun removePackagePrefix(packageName: String): String {
-        val prefixToRemove = listOf("com.google.", "com.android.","com.android.android.","android.ext.")
-        var cleanedName = packageName
-        for (prefix in prefixToRemove) {
-            if (packageName.startsWith(prefix)) {
-                cleanedName = packageName.substring(prefix.length)
-                break
-            }
-        }
-        return cleanedName
+        phoneApps.sortBy { it.shortName }
+        return phoneApps
     }
 }

@@ -65,7 +65,7 @@
             android:layout_margin="50dp"
             app:backgroundTint="#008FFF"
             android:textSize="16sp"
-            android:text="Edite"
+            android:text="Save"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />

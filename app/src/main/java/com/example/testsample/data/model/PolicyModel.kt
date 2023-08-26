@@ -9,5 +9,7 @@ import kotlinx.parcelize.Parcelize
 @Parcelize
 data class PolicyModel(
     @PrimaryKey(autoGenerate = true) val id: Int,
-    val name: String,
+    val shortName: String,
+    val appName:String,
+    val isSelected:Boolean,
 ) : Parcelable

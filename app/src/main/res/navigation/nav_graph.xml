@@ -152,28 +152,5 @@
             app:popEnterAnim="@anim/slide_in_left"
             app:popExitAnim="@anim/slide_out_right"
             />
-        <action
-            android:id="@+id/action_policyFragment_to_policyAllFragment"
-            app:destination="@id/policyAllFragment"
-            app:enterAnim="@anim/slide_in_right"
-            app:exitAnim="@anim/slide_out_left"
-            app:popEnterAnim="@anim/slide_in_left"
-            app:popExitAnim="@anim/slide_out_right"
-            />
     </fragment>
-    <fragment
-        android:id="@+id/policyAllFragment"
-        android:name="com.example.testsample.ui.fragment.policy.PackageNameFragment"
-        android:label="fragment_policy_all"
-        tools:layout="@layout/fragment_package_name" >
-        <action
-            android:id="@+id/action_policyAllFragment_to_policyFragment"
-            app:destination="@id/policyFragment"
-            app:enterAnim="@anim/slide_in_right"
-            app:exitAnim="@anim/slide_out_left"
-            app:popEnterAnim="@anim/slide_in_left"
-            app:popExitAnim="@anim/slide_out_right"
-            />
-    </fragment>
-
 </navigation>

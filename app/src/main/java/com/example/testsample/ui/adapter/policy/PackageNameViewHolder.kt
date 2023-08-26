@@ -8,7 +8,7 @@ import com.example.testsample.databinding.PackageNameItemBinding
 class PackageNameViewHolder(private val binding: PackageNameItemBinding) : ViewHolder(binding.root) {
 
     fun bindViews(model: PolicyModel, selectedItems: MutableList<PolicyModel>, context: Context) {
-        binding.ApplicationName.text = model.name
+        binding.ApplicationName.text = model.shortName
         binding.root.setOnClickListener {
             if (selectedItems.contains(model)) {
                 selectedItems.remove(model)
