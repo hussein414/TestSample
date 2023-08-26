@@ -39,7 +39,7 @@ class PolicyFragment : Fragment() {
     }
 
     private fun getPackageName() {
-        policyViewModel.deleteAll()
+        //policyViewModel.deleteAll()
         val packageNames = getPhoneUsersApplications()
         for (packageName in packageNames) {
             val appName = packageName.shortName
