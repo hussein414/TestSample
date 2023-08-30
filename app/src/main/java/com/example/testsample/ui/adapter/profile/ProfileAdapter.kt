@@ -9,9 +9,11 @@ import android.widget.Toast
 import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView.Adapter
+import com.example.testsample.data.model.PolicyModel
 import com.example.testsample.data.model.ProfileModel
 import com.example.testsample.databinding.SwitchItemBinding
 import com.example.testsample.ui.event.DeleteClickListener
+import com.example.testsample.ui.viewmodel.policy.PolicyViewModel
 import com.example.testsample.utils.VpnCaller
 import com.example.testsample.utils.Constance
 
@@ -22,6 +24,7 @@ class ProfileAdapter(
 ) : Adapter<ProfileViewHolder>() {
     private val vpnCaller = VpnCaller(context)
     var selectedItemId: Int? = null
+    private lateinit var policyViewModel: PolicyViewModel
 
 
     private val differCallback = object : DiffUtil.ItemCallback<ProfileModel>() {
@@ -64,7 +67,6 @@ class ProfileAdapter(
                 if (Constance.isMyVpnServiceRunning) {
                     vpnCaller.stopVpn()
                 }
-                Toast.makeText(context, currentItem.multiline, Toast.LENGTH_SHORT).show()
                 vpnCaller.startVpn(currentItem.multiline)
                 selectedItemId = currentItem.id
                 Constance.activeProfile = selectedItemId as Int

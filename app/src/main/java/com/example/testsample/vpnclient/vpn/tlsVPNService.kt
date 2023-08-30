@@ -143,23 +143,18 @@ class tlsVPNService : VpnService() {
     }
 
     private fun createVPNInterface(): ParcelFileDescriptor {
-        return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-            Builder()
-                .addAddress(V4Address, V4PL)
-                .addDnsServer("4.2.2.4").addDnsServer("8.8.8.8")
-                .addRoute("0.0.0.0", 0)
-                .setBlocking(false)
-                .addDisallowedApplication(getPackageName())
-                .establish() ?: throw IllegalStateException("createVPNInterface illegal state")
-        } else {
-            Builder()
-                .addAddress(V4Address, V4PL)
-                .addDnsServer("4.2.2.4").addDnsServer("8.8.8.8")
-                .addRoute("0.0.0.0", 0)
-                .setBlocking(false)
-                .addDisallowedApplication(getPackageName())
-                .establish() ?: throw IllegalStateException("createVPNInterface illegal state")
+        var builder=Builder()
+            .addAddress(V4Address, V4PL)
+            .addDnsServer("4.2.2.4").addDnsServer("8.8.8.8")
+            .addRoute("0.0.0.0", 0)
+            .setBlocking(false)
+            .addDisallowedApplication(getPackageName())
+        policyList.forEach(){appName->
+            builder.addDisallowedApplication(appName)
         }
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+        }
+        return builder.establish() ?: throw IllegalStateException("createVPNInterface illegal state")
     }
 
     @RequiresApi(Build.VERSION_CODES.O)

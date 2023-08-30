@@ -25,9 +25,6 @@ import com.example.testsample.utils.Constance
 
 
 class MainActivity : AppCompatActivity() {
-    //NEW-CHANGES
-
-    //NEW-CHANGES
 
     private lateinit var binding: ActivityMainBinding
     lateinit var profileViewModel: ProfileViewModel

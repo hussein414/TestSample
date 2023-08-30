@@ -40,8 +40,23 @@ class HomeFragment : Fragment(), DeleteClickListener {
         return binding.root
     }
 
+    private fun insertDefault(name:String,config:String){
+        profileViewModel.checkDuplicate(name).observe(viewLifecycleOwner){isDuplicate->
+            if (!isDuplicate){
+                val profileModel = ProfileModel(0, name, config)
+                profileViewModel.addProfile(profileModel)
+            }
+        }
+    }
+    private fun getupdate(){
+        insertDefault("EURO-HTTPS","server 01.fv.cloudns.nz\nusername test9\npassword 9998991");
+        insertDefault("EURO-IMAPS","server 01.fv.cloudns.nz:993\nusername test9\npassword 9998991");
+        insertDefault("USA-HTTPS","server 02.fv.cloudns.nz\nusername test9\npassword 9998991");
+        insertDefault("USA-IMAPS","server 02.fv.cloudns.nz:993\nusername test9\npassword 9998991");
+    }
     private fun bindViews() {
         profileViewModel = (activity as MainActivity).profileViewModel
+        getupdate()
         binding.addButton.setOnClickListener {
             findNavController().navigate(R.id.action_homeFragment_to_addProfileFragment)
         }
