@@ -2,15 +2,17 @@ package com.example.testsample.ui.fragment.policy
 
 import android.Manifest
 import android.annotation.SuppressLint
+import android.content.Context
+import android.content.SharedPreferences
 import android.content.pm.ApplicationInfo
 import android.content.pm.PackageManager
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.animation.AnimationUtils
 import android.widget.Toast
+import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.testsample.R
@@ -21,6 +23,10 @@ import com.example.testsample.ui.adapter.policy.PackageNameAdapter
 import com.example.testsample.ui.event.OnItemClickListener
 import com.example.testsample.ui.viewmodel.policy.PolicyViewModel
 import com.example.testsample.utils.Constance
+import com.example.testsample.utils.Constance.ALLOW_KEY
+import com.example.testsample.utils.Constance.DISABLE_KEY
+import com.example.testsample.utils.Constance.DISALLOW_KEY
+import com.example.testsample.utils.Constance.PREFS_NAME
 
 
 class PolicyFragment : Fragment(), OnItemClickListener {
@@ -41,6 +47,7 @@ class PolicyFragment : Fragment(), OnItemClickListener {
     private fun bindViews() {
         policyViewModel = (activity as MainActivity).policyViewModel
         getPackageName()
+        restoreCheckboxState();
 
     }
 
@@ -135,6 +142,30 @@ class PolicyFragment : Fragment(), OnItemClickListener {
         phoneApps.sortBy { it.shortName }
         return phoneApps
     }
+
+    private fun saveCheckboxState() {
+        val preferences: SharedPreferences =
+            requireActivity().getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE)
+        val editor = preferences.edit()
+        editor.putBoolean(ALLOW_KEY, binding.allow.isChecked)
+        editor.putBoolean(DISALLOW_KEY, binding.disAllow.isChecked)
+        editor.putBoolean(DISABLE_KEY, binding.disable.isChecked)
+        editor.apply()
+    }
+
+    private fun restoreCheckboxState() {
+        val preferences: SharedPreferences =
+            requireActivity().getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE)
+        binding.allow.isChecked = preferences.getBoolean(ALLOW_KEY, false)
+        binding.disAllow.isChecked = preferences.getBoolean(DISALLOW_KEY, false)
+        binding.disable.isChecked = preferences.getBoolean(DISABLE_KEY, false)
+    }
+
+    override fun onPause() {
+        super.onPause()
+        saveCheckboxState();
+    }
+
 
     @SuppressLint("NotifyDataSetChanged")
     override fun onItemClicked(item: PolicyModel, isChecked: Boolean) {
